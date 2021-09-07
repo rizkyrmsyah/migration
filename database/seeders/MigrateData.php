@@ -137,10 +137,4 @@ class MigrateData extends Seeder
 
 // protected $fillable = [
 //     'request_type',
-//     'package_id',
 // ];
-
-
-
-// data
-// tracking API
