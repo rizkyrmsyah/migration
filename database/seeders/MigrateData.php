@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\City;
 use App\Models\District;
 use App\Models\IsomanFunnel;
+use App\Models\Package;
 use App\Models\Request;
 use App\Models\Subdistrict;
 use App\Models\TestLocation;
@@ -103,6 +104,8 @@ class MigrateData extends Seeder
             'test_type_id' => TestType::where('name', $data['jenis_tes'])->value('id'),
             'test_type_name' => $data['jenis_tes'],
             'other_test_type' => $data['jenis_tes_lainnya'],
+            'package_id' => $data['paket_obat'] ? Package::where('name', $data['paket_obat'])->value('id') : 1,
+            'package_name' => $data['paket_obat'] ? $data['paket_obat'] : "Paket A",
         ];
     }
 
