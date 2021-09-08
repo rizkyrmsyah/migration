@@ -45,7 +45,6 @@ class MigrateData extends Seeder
         )
             ->leftJoin('isoman_control_tracking', 'isoman_control_tracking.id_permohonan', 'isoman_funnel.id_permohonan')
             ->leftJoin('isoman_verif_shipping', 'isoman_verif_shipping.id_permohonan', 'isoman_funnel.id_permohonan')
-            // ->where('kelurahan', 'Mekar jaya')
             ->get();
 
         DB::beginTransaction();
@@ -244,15 +243,33 @@ class MigrateData extends Seeder
     {
         switch ($subdistrict) {
             case 'Mekar jaya': $name = 'MEKARJAYA'; break;
-            case 'Babakan sari': $name = 'BABAKANSARI'; break;
             case 'Babakanpeuteuy': $name = 'BABAKAN PEUTEUY'; break;
-            case 'Babakansari': $name = 'BABAKAN SARI'; break;
+            case 'Babakansari':
+                $name = 'BABAKANSARI';
+                if ($districtId == 321002) {
+                    $name = 'BABAKAN SARI';
+                }
+                break;
+            case 'Babakan sari':
+                $name = 'BABAKAN SARI'; // kircon
+                if($districtId == 321404) { // Purwakarta
+                    $name = 'BABAKANSARI';
+                }
+                break;
+            case 'BABAKAN SARI': $name = 'BABAKANSARI'; break; // sukaluyu cianjur
             case 'Bakti jaya': $name = 'BAKTIJAYA'; break;
-            case 'Balungbang jaya' : $name = 'BALUMBANG JAYA'; break;
+            case 'Balungbangjaya' : $name = 'BALUMBANG JAYA'; break;
             case 'Bandorasa kulon' : $name = 'BANDORASAKULON'; break;
             case 'Bandorasa wetan' : $name = 'BANDORASAWETAN'; break;
             case 'Banjar sari' : $name = 'BANJARSARI'; break;
             case 'Banjar waru' : $name = 'BANJARWARU'; break;
+            case 'Balong gede' : $name = 'BALONGGEDE'; break;
+            case 'Bantar jati' : $name = 'BANTARJARI'; break;
+            case 'Bantar kuning' : $name = 'BANTARKUNING'; break;
+            case 'Bantar sari' : $name = 'BANTARSARI'; break;
+            case 'Batembat' : $name = 'BATTEMBAT'; break;
+            case 'Batu layang' : $name = 'BATULAYANG'; break;
+            case 'Bitung sari' : $name = 'BITUNGSARI'; break;
             default: $name = $subdistrict; break;
         }
 
