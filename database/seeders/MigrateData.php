@@ -218,14 +218,19 @@ class MigrateData extends Seeder
             case 'Lemah Wungkuk' : $name = 'LEMAHWUNGKUK'; break;
             case 'Bogor Tengah' : $name = 'KOTA BOGOR TENGAH'; break;
             case 'Warungkiara' : $name = 'WARUNG KIARA'; break;
-            case 'Kedokanbunder' : $name = 'KEDOKAN BUNDER'; break;
+            case 'Kedokanbunder' : $name = 'KEDOKANBUNDER'; break;
             case 'Gegerbitung' : $name = 'GEGER BITUNG'; break;
             case 'Kalapanunggal' : $name = 'KALAPA NUNGGAL'; break;
             case 'Banjaranyar' : $name = 'BANJARSARI'; break;
             case 'Talagasari' : $name = 'TELAGASARI'; break;
             case 'Parungpoteng' : $name = 'PARUNGPONTENG'; break;
             case 'Ujungjaya' : $name = 'UJUNG JAYA'; break;
-            case 'Tegalwaru' : $name = 'TEGAL WARU'; break;
+            case 'Tegalwaru' :
+                $name = 'TEGAL WARU';
+                if ($cityId == 3215) {
+                    $name = 'TEGALWARU';
+                }
+                break;
             case 'Blubur Limbangan' : $name = 'BL. LIMBANGAN'; break;
             case 'Parakansalak' : $name = 'PARAKAN SALAK'; break;
             case 'Cikakap' : $name = 'CIKAKAK'; break;
@@ -440,7 +445,7 @@ class MigrateData extends Seeder
                 break;
             case 'Sukaresmi' :
                 $name = 'SUKA RESMI';
-                if ($districtId == in_array($districtId, [3202, 3271])) {
+                if ($districtId == in_array($districtId, [327106, 320229])) {
                     $name = 'SUKARESMI';
                 }
                 break;
@@ -455,7 +460,12 @@ class MigrateData extends Seeder
                 }
                 break;
             case 'Sumurbandung' : $name = 'SUMUR BANDUNG'; break;
-            case 'Tajur halang' : $name = 'TAJURHALANG'; break;
+            case 'Tajur halang' :
+                $name = 'TAJURHALANG';
+                if ($districtId == 320128) {
+                    $name = 'TAJUR HALANG';
+                }
+                break;
             case 'Taman rahayu' : $name = 'TAMANRAHAYU'; break;
             case 'Taman sari' : $name = 'TAMANSARI'; break;
             case 'Tanjungmekar' : $name = 'TANJUNG MEKAR'; break;
