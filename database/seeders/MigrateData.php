@@ -278,6 +278,17 @@ class MigrateData extends Seeder
             case 'Bojongkidul' : $name = 'BOJONG KIDUL'; break;
             case 'Bojongsari lama' : $name = 'BOJONGSARI'; break;
             case 'Bojong baru' : $name = 'BOJONGBARU'; break;
+            case 'Cadas ngampar' : $name = 'CADASNGAMPAR'; break;
+            case 'Campakasari' : $name = 'CAMPAKASARI'; break;
+            case 'Cempakamekar' : $name = 'CAMPAKAMEKAR'; break;
+            case 'Cibatok 1' : $name = 'CIBATOK I'; break;
+            case 'Cibunigeulis' : $name = 'CIBUNIGEULIS'; break;
+            case 'Cikumpay' : $name = 'CIKUMPAY'; break;
+            case 'Cimanggu 1' : $name = 'CIMANGGU I'; break;
+            case 'Cimanggu 2' : $name = 'CIMANGGU II'; break;
+            case 'Cintalaksana' : $name = 'CINTALAKSANA'; break;
+            case 'Cintawargi' : $name = 'CINTAWARGI'; break;
+            case 'CIRIMEKAR' : $name = 'CIRIMEKAR'; break;
             case 'Ciaruten ilir' : $name = 'CIARUTEUN ILIR'; break;
             case 'Cibogo girang' : $name = 'CIBOGOGIRANG'; break;
             case 'Cileduk' : $name = 'CILEDUG'; break;
@@ -293,7 +304,29 @@ class MigrateData extends Seeder
             case 'Gempolkolot' : $name = 'GEMPOL KOLOT'; break;
             case 'Gedong panjang' : $name = 'GEDONGPANJANG'; break;
             case 'Gajahmekar' : $name = 'GAJAH MEKAR'; break;
-
+            case 'Harapan Jaya' :
+                $name = 'HARAPAN JAYA';
+                if ($districtId == 320101) {
+                    $name = 'HARAPANJAYA';
+                }
+                break;
+            case 'Huripjaya' : $name = 'Hurip Jaya'; break;
+            case 'Jabon mekar' : $name = 'JABONMEKAR'; break;
+            case 'Jampang kulon' : $name = 'JAMPANGKULON'; break;
+            case 'Jati sari' : $name = 'JATISARI'; break;
+            case 'Jatitengah' : $name = 'JATI TENGAH'; break;
+            case 'Kadumangu' : $name = 'KADUMANGGU'; break;
+            case 'Kaplonganlor' : $name = 'KAPLONGAN LOR'; break;
+            case 'Karang anyar' : $name = 'KARANGANYAR'; break;
+            case 'Karang tengah' : $name = 'KARANGTENGAH'; break;
+            case 'Karangtengah' : $name = 'KARANG TENGAH'; break;
+            case 'Kedung waringin' : $name = 'KEDUNGWARINGIN'; break;
+            case 'Kedungjaya' : $name = 'KEDUNG JAYA'; break;
+            case 'Kedungpengawas' : $name = 'KEDUNG PENGAWAS'; break;
+            case 'Kelapa nunggal' : $name = 'KLAPANUNGGAL'; break;
+            case 'Kertamukti' : $name = 'KERTAMUKTI'; break;
+            case 'Kotakulon' : $name = 'KOTA KULON'; break;
+            case 'Kotawetan' : $name = 'KOTA WETAN'; break;
             default: $name = $subdistrict; break;
         }
 
