@@ -13,6 +13,7 @@ use App\Models\TestType;
 use App\Models\Verification;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MigrateData extends Seeder
 {
@@ -292,7 +293,12 @@ class MigrateData extends Seeder
             case 'Ciaruten ilir' : $name = 'CIARUTEUN ILIR'; break;
             case 'Cibogo girang' : $name = 'CIBOGOGIRANG'; break;
             case 'Cileduk' : $name = 'CILEDUG'; break;
-            case 'Cimekar' : $name = 'CIRIMEKAR'; break;
+            case 'Cimekar' :
+                $name = 'CIRIMEKAR';
+                if ($districtId == 320405) {
+                    $name = 'CIMEKAR';
+                }
+                break;
             case 'Cijaura' : $name = 'CIJAWURA'; break;
             case 'Gunung menyan' : $name = 'GUNUNGMENYAN'; break;
             case 'Gunung sari' : $name = 'GUNUNGSARI'; break;
@@ -319,19 +325,51 @@ class MigrateData extends Seeder
             case 'Kaplonganlor' : $name = 'KAPLONGAN LOR'; break;
             case 'Karang anyar' : $name = 'KARANGANYAR'; break;
             case 'Karang tengah' : $name = 'KARANGTENGAH'; break;
-            case 'Karangtengah' : $name = 'KARANG TENGAH'; break;
+            case 'Karangtengah' :
+                $name = 'KARANG TENGAH';
+                if ($districtId == in_array($districtId, [320319, 320906])) {
+                    $name = 'KARANGTENGAH';
+                }
+
+                break;
+            case 'KARANG TENGAH' : $name = 'KARANGTENGAH'; break;
+            case 'Kebon gedang' : $name = 'KEBONGEDANG'; break;
+            case 'Kebon lega' : $name = 'KEBONLEGA'; break;
+            case 'Kebon waru' : $name = 'KEBONWARU'; break;
+            case 'Kebun jayanti' : $name = 'KEBON JAYANTI'; break;
+            case 'Kedokanbunder' : $name = 'KEDOKAN BUNDER'; break;
+            case 'Kedungjaya' :
+                $name = 'KEDUNG JAYA';
+                if ($districtId == in_array($districtId, [320920, 327106])) {
+                    $name = 'KEDUNGJAYA';
+                }
+                break;
             case 'Kedung waringin' : $name = 'KEDUNGWARINGIN'; break;
-            case 'Kedungjaya' : $name = 'KEDUNG JAYA'; break;
             case 'Kedungpengawas' : $name = 'KEDUNG PENGAWAS'; break;
             case 'Kelapa nunggal' : $name = 'KLAPANUNGGAL'; break;
             case 'Kertamukti' : $name = 'KERTAMUKTI'; break;
-            case 'Kotakulon' : $name = 'KOTA KULON'; break;
             case 'Kotawetan' : $name = 'KOTA WETAN'; break;
+            case 'Kotakulon' :
+                $name = 'KOTA KULON';
+                if ($districtId == 321117) {
+                    $name = 'KOTAKULON';
+                }
+                break;
+            case 'Lebak gede' : $name = 'LEBAKGEDE'; break;
+            case 'Lemahabang' : $name = 'LEMAH ABANG'; break;
+            case 'Lemahmekar' : $name = 'LEMAH MEKAR'; break;
+            case 'Lembursitu' : $name = 'LEMBURSITU'; break;
+            case 'Leuweung kolot' : $name = 'LEUWEUNGKOLOT'; break;
+            case 'Leuwinaggung' : $name = 'LEUWINANGGUNG'; break;
+            case 'Lewobaru' : $name = 'LEWO BARU'; break;
+            case 'Limbanganbarat' : $name = 'LIMBANGAN BARAT'; break;
+            case 'Limus nunggal' : $name = 'LIMUSNUNGGAL'; break;
+
             default: $name = $subdistrict; break;
         }
 
         return [
-            'id' => Subdistrict::where('name', $name)->where('district_id', $districtId)->value('id'),
+            'id' => Subdistrict::where('name', Str::upper($name))->where('district_id', $districtId)->value('id'),
             'name' => $name,
         ];
     }
