@@ -151,9 +151,9 @@ class MigrateData extends Seeder
         ];
     }
 
-    public function mappingCity($kabkot)
+    public function mappingCity($city)
     {
-        switch ($kabkot) {
+        switch ($city) {
             case 'Kab. Indramayu': $name = 'INDRAMAYU'; break;
             case 'Kab. Bekasi': $name = 'BEKASI'; break;
             case 'Kab. Sukabumi': $name = 'SUKABUMI'; break;
@@ -174,7 +174,7 @@ class MigrateData extends Seeder
             case 'Kab. Tasikmalaya': $name = 'TASIKMALAYA'; break;
             case 'Kab. Kuningan': $name = 'KUNINGAN'; break;
             case 'Kab. Pangandaran': $name = 'PANGANDARAN'; break;
-            default: $name = $kabkot; break;
+            default: $name = $city; break;
         }
 
         return [
@@ -261,15 +261,39 @@ class MigrateData extends Seeder
             case 'Balungbangjaya' : $name = 'BALUMBANG JAYA'; break;
             case 'Bandorasa kulon' : $name = 'BANDORASAKULON'; break;
             case 'Bandorasa wetan' : $name = 'BANDORASAWETAN'; break;
+            case 'Banjaran' : $name = 'BANJARAN'; break;
             case 'Banjar sari' : $name = 'BANJARSARI'; break;
             case 'Banjar waru' : $name = 'BANJARWARU'; break;
             case 'Balong gede' : $name = 'BALONGGEDE'; break;
-            case 'Bantar jati' : $name = 'BANTARJARI'; break;
+            case 'Bantar jati' : $name = 'BANTARJATI'; break;
             case 'Bantar kuning' : $name = 'BANTARKUNING'; break;
             case 'Bantar sari' : $name = 'BANTARSARI'; break;
             case 'Batembat' : $name = 'BATTEMBAT'; break;
             case 'Batu layang' : $name = 'BATULAYANG'; break;
             case 'Bitung sari' : $name = 'BITUNGSARI'; break;
+            case 'Bojong gede' : $name = 'BOJONGGEDE'; break;
+            case 'Bojong indah' : $name = 'BOJONGINDAH'; break;
+            case 'Bojong kokosan' : $name = 'BOJONGKOKOSAN'; break;
+            case 'Bojongcideres' : $name = 'BOJONG CIDERES'; break;
+            case 'Bojongkidul' : $name = 'BOJONG KIDUL'; break;
+            case 'Bojongsari lama' : $name = 'BOJONGSARI'; break;
+            case 'Bojong baru' : $name = 'BOJONGBARU'; break;
+            case 'Ciaruten ilir' : $name = 'CIARUTEUN ILIR'; break;
+            case 'Cibogo girang' : $name = 'CIBOGOGIRANG'; break;
+            case 'Cileduk' : $name = 'CILEDUG'; break;
+            case 'Cimekar' : $name = 'CIRIMEKAR'; break;
+            case 'Cijaura' : $name = 'CIJAWURA'; break;
+            case 'Gunung menyan' : $name = 'GUNUNGMENYAN'; break;
+            case 'Gunung sari' : $name = 'GUNUNGSARI'; break;
+            case 'Gunung sindur' : $name = 'GUNUNGSINDUR'; break;
+            case 'Gunungcupu' : $name = 'GUNUNG CUPU'; break;
+            case 'Gununggede' : $name = 'GUNUNG GEDE'; break;
+            case 'Gunungtandala' : $name = 'GUNUNG TANDALA'; break;
+            case 'Gempol sari' : $name = 'GEMPOLSARI'; break;
+            case 'Gempolkolot' : $name = 'GEMPOL KOLOT'; break;
+            case 'Gedong panjang' : $name = 'GEDONGPANJANG'; break;
+            case 'Gajahmekar' : $name = 'GAJAH MEKAR'; break;
+
             default: $name = $subdistrict; break;
         }
 
