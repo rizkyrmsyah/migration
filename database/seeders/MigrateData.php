@@ -45,6 +45,7 @@ class MigrateData extends Seeder
         )
             ->leftJoin('isoman_control_tracking', 'isoman_control_tracking.id_permohonan', 'isoman_funnel.id_permohonan')
             ->leftJoin('isoman_verif_shipping', 'isoman_verif_shipping.id_permohonan', 'isoman_funnel.id_permohonan')
+            // ->where('kelurahan', 'Mekar jaya')
             ->get();
 
         DB::beginTransaction();
@@ -79,6 +80,8 @@ class MigrateData extends Seeder
             $district['id'] = 327204;
         }
 
+        $subdistrict = $this->mappingSubdistrict($data['kelurahan'], $district['id']);
+
         return [
             'request_type' => $data['id_tiket'] ? 'obat_vitamin' : 'vitamin',
             'is_from_migration' => 1,
@@ -93,8 +96,8 @@ class MigrateData extends Seeder
             'city_name' => $city['name'],
             'district_id' => $district['id'],
             'district_name' => $district['name'],
-            'subdistrict_id' => Subdistrict::where('name', $data['kelurahan'])->where('district_id', $district['id'])->value('id'),
-            'subdistrict_name' => $data['kelurahan'],
+            'subdistrict_id' => $subdistrict['id'],
+            'subdistrict_name' => $subdistrict['name'],
             'address' => $data['alamat_lengkap'],
             'rt' => $data['rt'],
             'rw' => $data['rw'],
@@ -234,6 +237,28 @@ class MigrateData extends Seeder
         return [
             'id' => District::where('name', $name)->where('city_id', $cityId)->value('id'),
             'name' => $name
+        ];
+    }
+
+    public function mappingSubdistrict($subdistrict, $districtId)
+    {
+        switch ($subdistrict) {
+            case 'Mekar jaya': $name = 'MEKARJAYA'; break;
+            case 'Babakan sari': $name = 'BABAKANSARI'; break;
+            case 'Babakanpeuteuy': $name = 'BABAKAN PEUTEUY'; break;
+            case 'Babakansari': $name = 'BABAKAN SARI'; break;
+            case 'Bakti jaya': $name = 'BAKTIJAYA'; break;
+            case 'Balungbang jaya' : $name = 'BALUMBANG JAYA'; break;
+            case 'Bandorasa kulon' : $name = 'BANDORASAKULON'; break;
+            case 'Bandorasa wetan' : $name = 'BANDORASAWETAN'; break;
+            case 'Banjar sari' : $name = 'BANJARSARI'; break;
+            case 'Banjar waru' : $name = 'BANJARWARU'; break;
+            default: $name = $subdistrict; break;
+        }
+
+        return [
+            'id' => Subdistrict::where('name', $name)->where('district_id', $districtId)->value('id'),
+            'name' => $name,
         ];
     }
 }
