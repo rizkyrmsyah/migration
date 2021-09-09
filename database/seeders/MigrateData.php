@@ -81,9 +81,13 @@ class MigrateData extends Seeder
         }
 
         $subdistrict = $this->mappingSubdistrict($data['kelurahan'], $district['id']);
+        $type = 'vitamin';
+        if ($data['kategori'] == '99-GJ') {
+            $type = 'obat_vitamin';
+        }
 
         return [
-            'request_type' => $data['id_tiket'] ? 'obat_vitamin' : 'vitamin',
+            'request_type' => $type,
             'is_from_migration' => 1,
             'request_number' => $data['id_permohonan'],
             'created_date' => $data['created_date'],
