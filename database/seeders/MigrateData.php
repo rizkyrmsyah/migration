@@ -97,11 +97,11 @@ class MigrateData extends Seeder
             'phone_secondary' => $data['no_telepon_secondary'],
             'email' => $data['email'],
             'city_id' => $city['id'],
-            'city_name' => $city['name'],
+            'city_name' => Str::upper($city['name']),
             'district_id' => $district['id'],
-            'district_name' => $district['name'],
+            'district_name' => Str::upper($district['name']),
             'subdistrict_id' => $subdistrict['id'],
-            'subdistrict_name' => $subdistrict['name'],
+            'subdistrict_name' => Str::upper($subdistrict['name']) ,
             'address' => $data['alamat_lengkap'],
             'rt' => $data['rt'],
             'rw' => $data['rw'],
@@ -449,7 +449,7 @@ class MigrateData extends Seeder
                 break;
             case 'Sukaresmi' :
                 $name = 'SUKA RESMI';
-                if ($districtId == in_array($districtId, [327106, 320229])) {
+                if ($districtId == in_array($districtId, [327106, 320229, 320131])) {
                     $name = 'SUKARESMI';
                 }
                 break;
