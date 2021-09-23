@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\City;
 use App\Models\District;
 use App\Models\IsomanFunnel;
+use App\Models\IsomanVerifikasi;
 use App\Models\Package;
 use App\Models\Request;
 use App\Models\Subdistrict;
@@ -50,15 +51,19 @@ class MigrateData extends Seeder
 
         DB::beginTransaction();
         try {
+            $count = 0;
+            $total = count($datas);
             foreach ($datas as $data) {
                 $exists = Request::where('request_number', $data['id_permohonan'])->exists();
                 if (!$exists) {
                     $request = Request::create($this->mappingRequestData($data));
                     Verification::create($this->mappingVerificationData($data, $request->id));
                 }
+                $count++;
+                echo "{$count} of {$total} data migrated\n";
             }
             DB::commit();
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             DB::rollback();
             throw $th;
         }
@@ -84,6 +89,42 @@ class MigrateData extends Seeder
         $type = 'vitamin';
         if ($data['kategori'] == '99-GJ') {
             $type = 'obat_vitamin';
+        }
+
+        if ($data['id_permohonan'] == 'REQ-0000021492') {
+            $data['nama_dokter'] = "Diah";
+            $data['paket_obat'] = "Paket C";
+            $data['screenshot_bukti_konsultasi'] = null;
+            $data['id_tiket'] = "#72747";
+        }
+
+        switch ($data['paket_obat']) {
+            case 'Paket A.1': $data['paket_obat'] = 'Paket A1'; break;
+            case 'Paket B.1': $data['paket_obat'] = 'Paket B1'; break;
+            case 'Paket C.1': $data['paket_obat'] = 'Paket C1'; break;
+            case 'Paket D.1': $data['paket_obat'] = 'Paket D1'; break;
+        }
+
+        // Kalo paket obat nya null, ambil nya ke kolom sumber permohonan soalnya si nama paketnya ada disana
+        // contoh data : REQ-0000016889 REQ-0000011601
+        if ($data['paket_obat'] == null) {
+            if ($data['sumber_permohonan'] == '"Paket A - Vitamin"') {
+                $data['paket_obat'] = 'Paket A';
+            }
+            if ($data['sumber_permohonan'] == 'Paket B - Obat Antivirus dan Vitamin') {
+                $data['paket_obat'] = 'Paket B';
+            }
+        }
+
+        // kalo paket_obat sama sumber_permohonan dari funnel nya null, ambil ke table isoman_verifikasi
+        if ($data['paket_obat'] == null && $data['sumber_permohonan'] == null) {
+            $jenisPaket = IsomanVerifikasi::where('id_permohonan', $data['id_permohonan'])->value('jenis_paket');
+            if ($jenisPaket == '"Paket A - Vitamin"' || $jenisPaket == 'Paket A - Vitamin') {
+                $data['paket_obat'] = 'Paket A';
+            }
+            if ($jenisPaket == 'Paket B - Obat Antivirus dan Vitamin' || $jenisPaket == 'Paket B') {
+                $data['paket_obat'] = 'Paket B';
+            }
         }
 
         return [
@@ -120,14 +161,14 @@ class MigrateData extends Seeder
             'prescription_photo' => $data['screenshot_bukti_konsultasi'],
             'category' => $data['kategori'],
             'submission_id' => $data['submission_id'],
-            'test_location_id' => $data['lokasi_tes_lab'] == 'LAINNYA' ? null : TestLocation::where('name', $data['lokasi_tes_lab'])->value('id'),
+            'test_location_id' => $data['lokasi_tes_lab'] == 'LAINNYA' ? null : TestLocation::where('name', $data['lokasi_tes_lab'])->withTrashed()->value('id'),
             'test_location_name' => $data['lokasi_tes_lab'],
             'other_test_location' => $data['lokasi_tes_lab_lainnya'],
-            'test_type_id' => TestType::where('name', $data['jenis_tes'])->value('id'),
+            'test_type_id' => TestType::where('name', $data['jenis_tes'])->withTrashed()->value('id'),
             'test_type_name' => $data['jenis_tes'],
             'other_test_type' => $data['jenis_tes_lainnya'],
-            'package_id' => $data['paket_obat'] ? Package::where('name', $data['paket_obat'])->value('id') : 1,
-            'package_name' => $data['paket_obat'] ? $data['paket_obat'] : "Paket A",
+            'package_id' => $data['paket_obat'] ? Package::where('name', $data['paket_obat'])->withTrashed()->value('id') : null,
+            'package_name' => $data['paket_obat'] ? $data['paket_obat'] : null,
         ];
     }
 
