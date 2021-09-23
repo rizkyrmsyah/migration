@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\District;
 use App\Models\IsomanFunnel;
 use App\Models\IsomanVerifikasi;
+use App\Models\IsomanVerifResep;
 use App\Models\Package;
 use App\Models\Request;
 use App\Models\Subdistrict;
@@ -116,7 +117,7 @@ class MigrateData extends Seeder
             }
         }
 
-        // kalo paket_obat sama sumber_permohonan dari funnel nya null, ambil ke table isoman_verifikasi
+        // kalo paket_obat sama sumber_permohonan dari funnel nya null, coba cari ke table isoman_verifikasi
         if ($data['paket_obat'] == null && $data['sumber_permohonan'] == null) {
             $jenisPaket = IsomanVerifikasi::where('id_permohonan', $data['id_permohonan'])->value('jenis_paket');
             if ($jenisPaket == '"Paket A - Vitamin"' || $jenisPaket == 'Paket A - Vitamin') {
@@ -124,6 +125,26 @@ class MigrateData extends Seeder
             }
             if ($jenisPaket == 'Paket B - Obat Antivirus dan Vitamin' || $jenisPaket == 'Paket B') {
                 $data['paket_obat'] = 'Paket B';
+            }
+
+            // kalo nama paket nya "Resep Dokter" coba cari nama paket real nya di table isoman_verif_resep
+            if ($jenisPaket == 'Resep Dokter') {
+                $verifResep = IsomanVerifResep::where('id_permohonan', $data['id_permohonan'])->value('jenis_paket');
+                if ($verifResep == '"Paket A - Vitamin"' || $verifResep == 'Paket A - Vitamin Tanpa Konsultasi Dokter' || $verifResep == 'Paket A - Vitamin dengan Konsultasi Dokter') {
+                    $data['paket_obat'] = 'Paket A';
+                }
+                if ($verifResep == 'Paket B - Vitamin & Obat dengan konsultasi dokter (Gejala Ringan-Non Komorbid)') {
+                    $data['paket_obat'] = 'Paket B';
+                }
+                if ($verifResep == 'Paket C - Vitamin & Obat dengan konsultasi dokter (Gejala Ringan-Komorbid)') {
+                    $data['paket_obat'] = 'Paket C';
+                }
+                if ($verifResep == 'Paket D - Obat dengan konsultasi dokter (Oseltamivir)') {
+                    $data['paket_obat'] = 'Paket D';
+                }
+                if ($verifResep == 'Paket E - Obat dengan konsultasi dokter (Favirapir)') {
+                    $data['paket_obat'] = 'Paket E';
+                }
             }
         }
 
