@@ -62,9 +62,8 @@ class MigrateData extends Seeder
                 }
                 $count++;
                 echo "{$count} of {$total} data migrated\n";
-                DB::commit();
             }
-
+            DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
             throw $th;
@@ -248,8 +247,7 @@ class MigrateData extends Seeder
             case 'PONDOK SALAM' : $name = 'PONDOKSALAM'; break;
             case 'GUNUNGTANJUNG' : $name = 'GUNUNG TANJUNG'; break;
             case 'KARANGKANCANA' : $name = 'KARANG KANCANA'; break;
-            case 'CAMPAKAMULYA' : $name = 'CAMPAKA MULYA'; break;
-
+            case 'CAMPAKA MULYA' : $name = 'CAMPAKAMULYA'; break;
             default : $name = $district;
         }
 
