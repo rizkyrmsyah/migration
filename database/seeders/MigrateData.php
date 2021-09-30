@@ -62,8 +62,9 @@ class MigrateData extends Seeder
                 }
                 $count++;
                 echo "{$count} of {$total} data migrated\n";
+                DB::commit();
             }
-            DB::commit();
+
         } catch (\Throwable $th) {
             DB::rollback();
             throw $th;
@@ -72,18 +73,18 @@ class MigrateData extends Seeder
 
     public function mappingRequestData($data): array
     {
-        $city = $this->mappingCity($data['kabkot']);
+        $city = $this->mappingCity(Str::upper($data['kabkot']));
 
-        $district = $this->mappingDistrict($data['kecamatan'], $city['id']);
+        $district = $this->mappingDistrict(Str::upper($data['kecamatan']), $city['id']);
         if ($district['name'] == 'PANYILEUKAN') {
-            $city['id'] = 3273;
+            $city['id'] = '32.73';
             $city['name'] = 'KOTA BANDUNG';
-            $district['id'] = 327328;
+            $district['id'] = '32.73.28';
         }
         if ($district['name'] == 'WARUDOYONG') {
-            $city['id'] = 3272;
+            $city['id'] = '32.72';
             $city['name'] = 'KOTA SUKABUMI';
-            $district['id'] = 327204;
+            $district['id'] = '32.72.04';
         }
 
         $subdistrict = $this->mappingSubdistrict($data['kelurahan'], $district['id']);
@@ -159,7 +160,7 @@ class MigrateData extends Seeder
             'phone_secondary' => $data['no_telepon_secondary'],
             'email' => $data['email'],
             'city_id' => $city['id'],
-            'city_name' => Str::upper($city['name']),
+            'city_name' => $city['name'],
             'district_id' => $district['id'],
             'district_name' => Str::upper($district['name']),
             'subdistrict_id' => $subdistrict['id'],
@@ -220,92 +221,40 @@ class MigrateData extends Seeder
 
     public function mappingCity($city)
     {
-        switch ($city) {
-            case 'Kab. Indramayu': $name = 'INDRAMAYU'; break;
-            case 'Kab. Bekasi': $name = 'BEKASI'; break;
-            case 'Kab. Sukabumi': $name = 'SUKABUMI'; break;
-            case 'Kab. Bandung': $name = 'BANDUNG'; break;
-            case 'Kab. Bandung Barat': $name = 'BANDUNG BARAT'; break;
-            case 'Kab. Bogor': $name = 'BOGOR'; break;
-            case 'Kab. Sumedang': $name = 'SUMEDANG'; break;
-            case 'Kota Depok': $name = 'DEPOK'; break;
-            case 'Kota Cimahi': $name = 'CIMAHI'; break;
-            case 'Kab. Karawang': $name = 'KARAWANG'; break;
-            case 'Kab. Garut': $name = 'GARUT'; break;
-            case 'Kab. Cirebon': $name = 'CIREBON'; break;
-            case 'Kab. Ciamis': $name = 'CIAMIS'; break;
-            case 'Kab. Purwakarta': $name = 'PURWAKARTA'; break;
-            case 'Kab. Majalengka': $name = 'MAJALENGKA'; break;
-            case 'Kab. Subang': $name = 'SUBANG'; break;
-            case 'Kab. Cianjur': $name = 'CIANJUR'; break;
-            case 'Kab. Tasikmalaya': $name = 'TASIKMALAYA'; break;
-            case 'Kab. Kuningan': $name = 'KUNINGAN'; break;
-            case 'Kab. Pangandaran': $name = 'PANGANDARAN'; break;
-            default: $name = $city; break;
-        }
-
         return [
-            'id' => City::where('name', $name)->value('id'),
-            'name' => $name,
+            'id' => City::where('name', $city)->value('id'),
+            'name' => $city,
         ];
     }
 
     public function mappingDistrict($district, $cityId)
     {
         switch ($district) {
-            case 'Medansatria' : $name = 'Medan Satria'; break;
-            case 'Gunung Jati' : $name = 'GUNUNGJATI'; break;
-            case 'Pondokmelati' : $name = 'PONDOK MELATI'; break;
-            case 'Kuntawaringin' : $name = 'KUTAWARINGIN'; break;
-            case 'Kotabaru' : $name = 'KOTA BARU'; break;
-            case 'Buahbatu' : $name = 'BUAH BATU'; break;
-            case 'Panyileukan' : $name = 'PANYILEUKAN'; break;
-            case 'Kedungwaringin'  : $name = 'KEDUNG WARINGIN'; break;
-            case 'Tajur Halang' : $name = 'TAJURHALANG' ; break;
-            case 'Karangbahagia'  : $name = 'KARANG BAHAGIA'; break;
-            case 'Kelapa Nunggal' : $name = 'KLAPANUNGGAL' ; break;
-            case 'Solokan Jeruk' : $name = 'SOLOKANJERUK'; break;
-            case 'Jampangkulon' : $name = 'JAMPANG KULON'; break;
-            case 'Jampangtengah' : $name = 'JAMPANG TENGAH'; break;
-            case 'Gununghalu' : $name = 'GUNUNG HALU'; break;
-            case 'Purbasari' : $name = 'PURWASARI'; break;
-            case 'Cikalongwetan' : $name = 'CIKALONG WETAN'; break;
-            case 'Ranca Bungur' : $name = 'RANCABUNGUR'; break;
-            case 'Gunungpuyuh' : $name = 'GUNUNG PUYUH'; break;
-            case 'Warungdoyonga' : $name = 'WARUDOYONG'; break;
-            case 'Susukanlebak' : $name = 'SUSUKAN LEBAK'; break;
-            case 'Sindang Agung' : $name = 'SINDANGAGUNG'; break;
-            case 'Parungkuda' : $name = 'PARUNG KUDA'; break;
-            case 'Mustikajaya' : $name = 'MUSTIKA JAYA'; break;
-            case 'Bogor Selatan' : $name = 'KOTA BOGOR SELATAN'; break;
-            case 'Bogor Barat' : $name = 'KOTA BOGOR BARAT'; break;
-            case 'Bogor Utara' : $name = 'KOTA BOGOR UTARA'; break;
-            case 'Bogor Timur' : $name = 'KOTA BOGOR TIMUR'; break;
-            case 'Lemah Wungkuk' : $name = 'LEMAHWUNGKUK'; break;
-            case 'Bogor Tengah' : $name = 'KOTA BOGOR TENGAH'; break;
-            case 'Warungkiara' : $name = 'WARUNG KIARA'; break;
-            case 'Kedokanbunder' : $name = 'KEDOKANBUNDER'; break;
-            case 'Gegerbitung' : $name = 'GEGER BITUNG'; break;
-            case 'Kalapanunggal' : $name = 'KALAPA NUNGGAL'; break;
-            case 'Banjaranyar' : $name = 'BANJARSARI'; break;
-            case 'Talagasari' : $name = 'TELAGASARI'; break;
-            case 'Parungpoteng' : $name = 'PARUNGPONTENG'; break;
-            case 'Ujungjaya' : $name = 'UJUNG JAYA'; break;
-            case 'Tegalwaru' :
-                $name = 'TEGAL WARU';
-                if ($cityId == 3215) {
-                    $name = 'TEGALWARU';
-                }
-                break;
-            case 'Blubur Limbangan' : $name = 'BL. LIMBANGAN'; break;
-            case 'Parakansalak' : $name = 'PARAKAN SALAK'; break;
-            case 'Cikakap' : $name = 'CIKAKAK'; break;
-            case 'Pondok Salam' : $name = 'PONDOKSALAM'; break;
+            case 'KUNTAWARINGIN' : $name = 'KUTAWARINGIN'; break;
+            case 'KOTABARU' : $name = 'KOTA BARU'; break;
+            case 'KEDUNGWARINGIN'  : $name = 'KEDUNG WARINGIN'; break;
+            case 'TAJUR HALANG' : $name = 'TAJURHALANG' ; break;
+            case 'KARANGBAHAGIA'  : $name = 'KARANG BAHAGIA'; break;
+            case 'KELAPA NUNGGAL' : $name = 'KLAPANUNGGAL' ; break;
+            case 'SOLOKAN JERUK' : $name = 'SOLOKANJERUK'; break;
+            case 'PURBASARI' : $name = 'PURWASARI'; break;
+            case 'WARUNGDOYONGA' : $name = 'WARUDOYONG'; break;
+            case 'SUSUKANLEBAK' : $name = 'SUSUKAN LEBAK'; break;
+            case 'KEDOKANBUNDER' : $name = 'KEDOKAN BUNDER'; break;
+            case 'TALAGASARI' : $name = 'TELAGASARI'; break;
+            case 'PARUNGPOTENG' : $name = 'PARUNGPONTENG'; break;
+            case 'BLUBUR LIMBANGAN' : $name = 'BL. LIMBANGAN'; break;
+            case 'CIKAKAP' : $name = 'CIKAKAK'; break;
+            case 'PONDOK SALAM' : $name = 'PONDOKSALAM'; break;
+            case 'GUNUNGTANJUNG' : $name = 'GUNUNG TANJUNG'; break;
+            case 'KARANGKANCANA' : $name = 'KARANG KANCANA'; break;
+            case 'CAMPAKAMULYA' : $name = 'CAMPAKA MULYA'; break;
+
             default : $name = $district;
         }
 
         return [
-            'id' => District::where('name', Str::upper($name))->where('city_id', $cityId)->value('id'),
+            'id' => District::where('name', $name)->where('city_id', $cityId)->value('id'),
             'name' => $name
         ];
     }
