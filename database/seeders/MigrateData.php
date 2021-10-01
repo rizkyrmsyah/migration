@@ -250,9 +250,7 @@ class MigrateData extends Seeder
             case 'GUNUNGTANJUNG' : $name = 'GUNUNG TANJUNG'; break;
             case 'KARANGKANCANA' : $name = 'KARANG KANCANA'; break;
             case 'CAMPAKA MULYA' : $name = 'CAMPAKAMULYA'; break;
-            case 'PONDOK KASO TONGGOH' : $name = 'PONDOKASO TONGGOH'; break;
             case 'PAMAGER SARI' : $name = 'PAMEGARSARI'; break;
-
             default : $name = $district;
         }
 
@@ -279,45 +277,98 @@ class MigrateData extends Seeder
             case 'CIHIDEUNG ILIR' : $name = 'CIHIDEUNGHILIR'; break;
             case 'CIMANGGU 1' : $name = 'CIMANGGU I'; break;
             case 'CIMANGGU 2' : $name = 'CIMANGGU II'; break;
+            case 'CIBATOK 1' : $name = 'CIBATOK I'; break;
+            case 'CIMINCRANG' : $name = 'CIMENERANG'; break;
+            case 'CIBORELANG' : $name = 'CIBOLERANG'; break;
             case 'CIMEKAR' :
                 $name = $subdistrict;
                 if ($districtId == in_array($districtId, ['32.01.01'])) {
                     $name = 'CIRIMEKAR';
                 }
                 break;
+            case 'HAURNGOMBONG' : $name = 'HAURGOMBONG'; break;
+            case 'HARJAMEKAR' : $name = 'HAJARMEKAR'; break;
             case 'KELAPA NUNGGAL' : $name = 'KLAPANUNGGAL'; break;
             case 'KEBUN JAYANTI' : $name = 'KEBON JAYANTI'; break;
             case 'KARSAMENAK' : $name = 'KERSAMENAK'; break;
-
-
-            case 'MANJAHLEGA' : $name = 'MUNJAHLEGA'; break;
-            case 'MEKARJAYA' :
-                $name = 'MEKARMULYA';
-                if ($districtId == in_array($districtId, ['32.11.18', '32.01.29','32.04.13', '32.17.04', '32.07.32', '32.08.22', '32.08.22', '32.03.09'])) {
-                    $name = 'MEKARJAYA';
-                }
-                break;
-            case 'MERUYUNG' : $name = 'MARUYUNG'; break;
-            case 'NAGERI KALER' : $name = 'NAGRI TENGAH'; break;
-            case 'NAGERI KIDUL' : $name = 'NAGRI KIDUL'; break;
-            case 'NAGERI TENGAH' : $name = 'NAGRI TENGAH'; break;
-            case 'SULAEMAN' : $name = 'SULAIMAN'; break;
-            case 'SAWANGAN LAMA' : $name = 'SAWANGAN'; break;
-            case 'MARGUHURIP' : $name = 'MARGAHURIP'; break;
+            case 'KALANGSURIA' : $name = 'KALANGSURYA'; break;
+            case 'KADUMANGU' : $name = 'KADUMANGGU'; break;
             case 'KARANGPAWITAN' :
                 $name = $subdistrict;
                 if ($districtId == in_array($districtId, ['32.15.01'])) {
                     $name = 'KARAWANGPAWITAN';
                 }
                 break;
-            case 'SETU SARI' : $name = 'SITUSARI'; break;
-            case 'CIMINCRANG' : $name = 'CIMENERANG'; break;
+            case 'LEUWINAGGUNG' : $name = 'LEUWINANGGUNG'; break;
+            case 'MANJAHLEGA' : $name = 'MUNJAHLEGA'; break;
+            case 'MEKARJAYA' :
+                $name = 'MEKARMULYA';
+                if ($districtId == in_array($districtId, ['32.11.18', '32.01.29','32.04.13', '32.17.04', '32.07.32', '32.08.22', '32.08.22', '32.03.09', '32.02.21'])) {
+                    $name = 'MEKARJAYA';
+                }
+                break;
+            case 'MERUYUNG' : $name = 'MARUYUNG'; break;
+            case 'MARACANG' : $name = 'MARANCANG'; break;
+            case 'MARGUHURIP' : $name = 'MARGAHURIP'; break;
+            case 'NAGERI KALER' : $name = 'NAGRI TENGAH'; break;
+            case 'NAGERI KIDUL' : $name = 'NAGRI KIDUL'; break;
+            case 'NAGERI TENGAH' : $name = 'NAGRI TENGAH'; break;
+            case 'SULAEMAN' : $name = 'SULAIMAN'; break;
+            case 'SAWANGAN LAMA' : $name = 'SAWANGAN'; break;
             case 'MANGGUNGHARJA' : $name = 'MANGUNHARJA'; break;
             case 'PAMAGER SARI' : $name = 'PAMEGARSARI'; break;
             case 'PASIRANJUNG' : $name = 'PASIRNANJUNG'; break;
+            case 'PALAWAD' : $name = 'PLAWAD'; break;
+            case 'PAKEMITANKIDUL' : $name = 'PAKAMITANKIDUL'; break;
+            case 'PONDOK KASO TONGGOH' : $name = 'PONDOKASO TONGGOH'; break;
+            case 'PASIRRANJI' : $name = 'PASIRANJI'; break;
+            case 'SETU SARI' : $name = 'SITUSARI'; break;
+            case 'SUDAJAYA GIRANG' : $name = 'SUNDAJAYAGIRANG'; break;
+            case 'SUKAMANTRI' :
+                $name = $subdistrict;
+                if ($districtId == in_array($districtId, ['32.05.01'])) {
+                    $name = 'SUKAMENTRI';
+                }
 
-
-
+                break;
+            case 'TEMIYANGSARI' : $name = 'TAMIYANGSARI'; break;
+            case 'TEGALTAMAN' : $name = 'TAGAL TAMAN'; break;
+            case 'TEGALMUNJUL' : $name = 'TEGALMUNCUL'; break;
+            case 'TALAGASARI' :
+                $name = 'TELAGASARI';
+                if ($districtId == in_array($districtId, ['32.05.10'])) {
+                    $name = 'TALAGASARI';
+                }
+                break;
+            case 'SUMBERREJA' : $name = 'SUMBEREJA'; break;
+            case 'SINARSARI' : $name = 'SIRNASARI'; break;
+            case 'SIGARACIPTA' : $name = 'SAGARACIPTA'; break;
+            case 'SEGARAMAKMUR' : $name = 'SAGARA MAKMUR'; break;
+            case 'PEKANTINGAN' : $name = 'PAKANTINGAN'; break;
+            case 'PASIR BUNCIR' : $name = 'BASIR BUNCIR'; break;
+            case 'PANGURAGAN LOR' : $name = 'PANGURANGAN LOR'; break;
+            case 'PADANAAN' : $name = 'PADANAN'; break;
+            case 'NANGGERANG' :
+                $name = 'NANGERANG';
+                if ($districtId == in_array($districtId, ['32.01.37', '32.11.12', '32.02.16', '32.08.12',])) {
+                    $name = 'NANGGERANG';
+                }
+                break;
+            case 'MANGKURAYAT' : $name = 'MANGURAKYAT'; break;
+            case 'LINGGASARI' :
+                $name = 'LINGGARSARI';
+                if ($districtId == in_array($districtId, ['32.07.01'])) {
+                    $name = 'LINGGASARI';
+                }
+                break;
+            case 'LINGGAJATI' : $name = 'LINGGARJATI'; break;
+            case 'KERTABASUKI' : $name = 'KARTABASUKI'; break;
+            case 'KEBONKELAPA' : $name = 'KEBON KALAPA'; break;
+            case 'KARANGMUKTI' : $name = 'KARYAMUKTI'; break;
+            case 'CIHOWE' : $name = 'CIHOE'; break;
+            case 'CIARUTEN ILIR' : $name = 'CIARUTEUN ILIR'; break;
+            case 'BOJONGSARI LAMA' : $name = 'BOJONGSARI'; break;
+            case 'BATEMBAT' : $name = 'BATTEMBAT'; break;
             default : $name = $subdistrict;
         }
 
