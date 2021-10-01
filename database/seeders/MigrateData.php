@@ -329,7 +329,6 @@ class MigrateData extends Seeder
                 if ($districtId == in_array($districtId, ['32.05.01'])) {
                     $name = 'SUKAMENTRI';
                 }
-
                 break;
             case 'TEMIYANGSARI' : $name = 'TAMIYANGSARI'; break;
             case 'TEGALTAMAN' : $name = 'TAGAL TAMAN'; break;
