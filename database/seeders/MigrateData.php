@@ -250,6 +250,9 @@ class MigrateData extends Seeder
             case 'GUNUNGTANJUNG' : $name = 'GUNUNG TANJUNG'; break;
             case 'KARANGKANCANA' : $name = 'KARANG KANCANA'; break;
             case 'CAMPAKA MULYA' : $name = 'CAMPAKAMULYA'; break;
+            case 'PONDOK KASO TONGGOH' : $name = 'PONDOKASO TONGGOH'; break;
+            case 'PAMAGER SARI' : $name = 'PAMEGARSARI'; break;
+
             default : $name = $district;
         }
 
@@ -261,7 +264,64 @@ class MigrateData extends Seeder
 
     public function mappingSubdistrict($subdistrict, $districtId)
     {
-        $n = str_replace(' ', '', $subdistrict);
+        switch ($subdistrict) {
+            case 'BENGLE' :
+                $name = 'BENGLE';
+                if ($districtId == in_array($districtId, ['32.15.21'])) {
+                    $name = 'BANGLE';
+                }
+                break;
+            case 'BALUNGBANGJAYA' : $name = 'BALUMBANG JAYA'; break;
+            case 'CEMPAKAMEKAR' : $name = 'CAMPAKA MEKAR'; break;
+            case 'CISARANTEN KIDUL' : $name = 'CISANTREN KIDUL'; break;
+            case 'CIKAMPEK UTARA' : $name = 'CILKAMPEK UTARA'; break;
+            case 'CILEDUK' : $name = 'CILEDUG'; break;
+            case 'CIHIDEUNG ILIR' : $name = 'CIHIDEUNGHILIR'; break;
+            case 'CIMANGGU 1' : $name = 'CIMANGGU I'; break;
+            case 'CIMANGGU 2' : $name = 'CIMANGGU II'; break;
+            case 'CIMEKAR' :
+                $name = $subdistrict;
+                if ($districtId == in_array($districtId, ['32.01.01'])) {
+                    $name = 'CIRIMEKAR';
+                }
+                break;
+            case 'KELAPA NUNGGAL' : $name = 'KLAPANUNGGAL'; break;
+            case 'KEBUN JAYANTI' : $name = 'KEBON JAYANTI'; break;
+            case 'KARSAMENAK' : $name = 'KERSAMENAK'; break;
+
+
+            case 'MANJAHLEGA' : $name = 'MUNJAHLEGA'; break;
+            case 'MEKARJAYA' :
+                $name = 'MEKARMULYA';
+                if ($districtId == in_array($districtId, ['32.11.18', '32.01.29','32.04.13', '32.17.04', '32.07.32', '32.08.22', '32.08.22', '32.03.09'])) {
+                    $name = 'MEKARJAYA';
+                }
+                break;
+            case 'MERUYUNG' : $name = 'MARUYUNG'; break;
+            case 'NAGERI KALER' : $name = 'NAGRI TENGAH'; break;
+            case 'NAGERI KIDUL' : $name = 'NAGRI KIDUL'; break;
+            case 'NAGERI TENGAH' : $name = 'NAGRI TENGAH'; break;
+            case 'SULAEMAN' : $name = 'SULAIMAN'; break;
+            case 'SAWANGAN LAMA' : $name = 'SAWANGAN'; break;
+            case 'MARGUHURIP' : $name = 'MARGAHURIP'; break;
+            case 'KARANGPAWITAN' :
+                $name = $subdistrict;
+                if ($districtId == in_array($districtId, ['32.15.01'])) {
+                    $name = 'KARAWANGPAWITAN';
+                }
+                break;
+            case 'SETU SARI' : $name = 'SITUSARI'; break;
+            case 'CIMINCRANG' : $name = 'CIMENERANG'; break;
+            case 'MANGGUNGHARJA' : $name = 'MANGUNHARJA'; break;
+            case 'PAMAGER SARI' : $name = 'PAMEGARSARI'; break;
+            case 'PASIRANJUNG' : $name = 'PASIRNANJUNG'; break;
+
+
+
+            default : $name = $subdistrict;
+        }
+
+        $n = str_replace(' ', '', $name);
         return [
             'id' => Subdistrict::whereRaw("replace(name,' ', '') = '$n'")->where('district_id', $districtId)->value('id'),
             'name' => $subdistrict,
